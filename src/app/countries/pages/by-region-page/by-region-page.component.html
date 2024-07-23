@@ -1,18 +1,26 @@
 <h2>Por region</h2>
-<h5>Africa, Americas, Asia, Europe, Oceania</h5>
+<h5>Africa, America, Asia, Europe, Oceania</h5>
 <hr>
 
 <div class="row">
-  <div class="col">
-    <shared-search-box
-    (onValue)="searchRegion($event)"
-    placeHolder="Buscar por region (Africa, Americas, Asia, Europe, Oceania)"></shared-search-box>
+  <div class="col text-center">
+    <div class="btn-group btn-group-toggle btn-primary" >
+      <button #boton *ngFor="let region of regions" class="btn btn-light">
+        <button type="submit" class="btn btn-primary btn-rounded btn-toggle" data-toggle="button"
+          (click)="searchRegion(region)" ngbButton>
+            {{region}}
+        </button>
+      </button>
+    </div>
   </div>
+  <hr *ngIf="this.selectedRegion !== ''">
+  <h3 *ngIf="!isLoading"> {{ this.selectedRegion }}</h3>
 </div>
 
 <div class="row">
   <div class="col">
     <hr>
+    <shared-loading-spinner *ngIf="isLoading"></shared-loading-spinner>
     <countries-table [countries]="countries"></countries-table>
   </div>
 </div>
